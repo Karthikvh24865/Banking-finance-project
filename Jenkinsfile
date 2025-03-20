@@ -14,11 +14,11 @@ pipeline {
    stage('CheckOut') {
       steps {
         echo 'Checkout the source code from GitHub'
-        git branch: 'main', url: 'https://github.com/cbabu85/Banking-finance-project.git'
+        git branch: 'main', url: 'https://github.com/prabhulk25/Banking-finance-project.git'
             }
     }
     
-/*    stage('Package the Application') {
+    stage('Package the Application') {
       steps {
         echo " Packaing the Application"
         sh 'mvn clean package'
@@ -33,7 +33,7 @@ pipeline {
     
     stage('Docker Image Creation') {
       steps {
-        sh 'docker build -t cbabu85/bankingfinance:3.0 .'
+        sh 'docker build -t prabhulk/bankingfinance .'
             }
     }
     stage('DockerLogin') {
@@ -46,9 +46,9 @@ pipeline {
   
     stage('Push Image to DockerHub') {
       steps {
-        sh 'docker push cbabu85/bankingfinance:3.0'
+        sh 'docker push prabhulk/bankingfinance'
             }
-    } */
+    } 
         stage ('Configure Test-server with Terraform, Ansible and then Deploying'){
             steps {
                 dir('my-serverfiles'){
@@ -59,10 +59,10 @@ pipeline {
                 }
             }
         }
-/*        stage ('Deploy into test-server using Ansible') {
+        stage ('Deploy into test-server using Ansible') {
            steps {
              ansiblePlaybook credentialsId: 'BabucKeypair', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'finance-playbook.yml'
            }
-               }*/
+               }
      }
 }

@@ -52,7 +52,7 @@ pipeline {
         stage ('Configure Test-server with Terraform, Ansible and then Deploying'){
             steps {
                 dir('my-serverfiles'){
-                sh 'sudo chmod 600 BabucKeypair.pem'
+                sh 'sudo chmod 600 Prabhu.pem'
                 sh 'terraform init'
                 sh 'terraform validate'
                 sh 'terraform apply --auto-approve'
@@ -61,7 +61,7 @@ pipeline {
         }
         stage ('Deploy into test-server using Ansible') {
            steps {
-             ansiblePlaybook credentialsId: 'BabucKeypair', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'finance-playbook.yml'
+             ansiblePlaybook credentialsId: 'Prabhu', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'finance-playbook.yml'
            }
                }
      }

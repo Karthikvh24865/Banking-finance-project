@@ -55,7 +55,8 @@ pipeline {
         }
         stage ('Deploy into test-server using Ansible') {
            steps {
-             ansiblePlaybook credentialsId: 'sshkey', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'finance-playbook.yml'
+             //ansiblePlaybook credentialsId: 'sshkey', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'finance-playbook.yml'
+             ansiblePlaybook credentialsId: 'sshkey', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'finance-playbook.yml', vaultTmpPath: '' 
            }
                }
      }

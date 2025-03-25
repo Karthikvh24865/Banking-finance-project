@@ -28,20 +28,20 @@ pipeline {
     
     stage('Docker Image Creation') {
       steps {
-        sh 'docker build -t prabhulk/bankingfinance .'
+        sh 'sudo docker build -t prabhulk/bankingfinance .'
             }
     }
     stage('DockerLogin') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'Docker-Login', passwordVariable: 'docker_password', usernameVariable: 'docker_login')]) {
-        sh "docker login -u ${docker_login} -p ${docker_password}"
+        sh "sudo docker login -u ${docker_login} -p ${docker_password}"
             }
         }
     } 
   
     stage('Push Image to DockerHub') {
       steps {
-        sh 'docker push prabhulk/bankingfinance'
+        sh 'sudo docker push prabhulk/bankingfinance'
             }
     } 
         stage ('Configure Test-server with Terraform, Ansible and then Deploying'){

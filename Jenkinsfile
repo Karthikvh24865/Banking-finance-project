@@ -8,7 +8,8 @@ pipeline {
    stage('CheckOut') {
       steps {
         echo 'Checkout the source code from GitHub'
-        git url: 'https://github.com/prabhulk25/Banking-finance-project'
+       // git url: 'https://github.com/prabhulk25/Banking-finance-project'
+        git branch: 'main', url: 'https://github.com/prabhulk25/Banking-finance-project.git'
             }
     }
     

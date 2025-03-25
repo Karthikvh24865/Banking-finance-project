@@ -19,7 +19,7 @@ resource "aws_instance" "test-server" {
 //      command = " echo ${aws_instance.test-server.public_ip} > /etc/ansible/hosts "
 //  }
  provisioner "local-exec" {
-  command = "echo ${aws_instance.test-server.public_ip} | sudo tee /etc/ansible/hosts > /dev/null"
+  command = "echo ${aws_instance.test-server.public_ip} | sudo tee /etc/ansible/hosts > /dev/null "
 }
 
    provisioner "local-exec" {

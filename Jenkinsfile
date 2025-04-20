@@ -8,8 +8,7 @@ pipeline {
    stage('CheckOut') {
       steps {
         echo 'Checkout the source code from GitHub'
-       // git url: 'https://github.com/prabhulk25/Banking-finance-project'
-        git branch: 'main', url: 'https://github.com/prabhulk25/Banking-finance-project.git'
+        git branch: 'main', url: 'https://github.com/Karthikvh24865/Banking-finance-project.git'
             }
     }
     
@@ -28,7 +27,7 @@ pipeline {
     
     stage('Docker Image Creation') {
       steps {
-        sh 'sudo docker build -t prabhulk/bankingfinance .'
+        sh 'sudo docker build -t karthikhiremath/bankingfinance .'
             }
     }
     stage('DockerLogin') {
@@ -41,7 +40,7 @@ pipeline {
   
     stage('Push Image to DockerHub') {
       steps {
-        sh 'sudo docker push prabhulk/bankingfinance'
+        sh 'sudo docker push karthikhiremath/bankingfinance'
             }
     } 
         stage ('Configure Test-server with Terraform, Ansible and then Deploying'){
@@ -56,7 +55,6 @@ pipeline {
         }
         stage ('Deploy into test-server using Ansible') {
            steps {
-             //ansiblePlaybook credentialsId: 'sshkey', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'finance-playbook.yml'
              ansiblePlaybook credentialsId: 'sshkey', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'ansible-playbook.yml', vaultTmpPath: '' 
            }
                }

@@ -33,14 +33,14 @@ pipeline {
     stage('DockerLogin') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'Docker-Login', passwordVariable: 'docker_password', usernameVariable: 'docker_login')]) {
-        sh "sudo docker login -u ${docker_login} -p ${docker_password}"
+        sh "docker login -u ${docker_login} -p ${docker_password}"
             }
         }
     } 
   
     stage('Push Image to DockerHub') {
       steps {
-        sh 'sudo docker push karthikhiremath/bankingfinance'
+        sh 'docker push karthikhiremath/bankingfinance'
             }
     } 
         stage ('Configure Test-server with Terraform, Ansible and then Deploying'){

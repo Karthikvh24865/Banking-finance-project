@@ -1,3 +1,4 @@
+/*
 resource "aws_instance" "test-server" {
   ami           = "ami-00bb6a80f01f03502" 
   instance_type = "t2.micro" 
@@ -28,4 +29,36 @@ resource "aws_instance" "test-server" {
    provisioner "local-exec" {
   command = "ansible-playbook /var/lib/jenkins/workspace/Banking-finance-project/my-serverfiles/finance-playbook.yml "
   } 
+}
+*/
+resource "aws_instance" "test-server" {
+  ami                    = "ami-00bb6a80f01f03502"
+  instance_type          = "t2.micro"
+  key_name               = "huli"
+  vpc_security_group_ids = ["sg-0f9b64f0f5bafa7e0"]
+
+  connection {
+    type        = "ssh"
+    user        = "ubuntu"
+    private_key = file("./huli.pem")
+    host        = self.public_ip
+  }
+
+  tags = {
+    Name = "test-server"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "echo 'Instance is ready...'"
+    ]
+  }
+
+  provisioner "local-exec" {
+    command = <<EOT
+      echo "[finance]" > /tmp/ansible_inventory && \
+      echo "${self.public_ip} ansible_ssh_user=ubuntu ansible_ssh_private_key_file=./huli.pem" >> /tmp/ansible_inventory && \
+      ansible-playbook -i /tmp/ansible_inventory /var/lib/jenkins/workspace/Banking-finance-project/my-serverfiles/finance-playbook.yml
+    EOT
+  }
 }

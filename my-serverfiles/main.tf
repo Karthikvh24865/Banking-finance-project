@@ -9,6 +9,9 @@ resource "aws_instance" "test-server" {
     private_key = file("./huli.pem")
     host     = self.public_ip
   }
+  lifecycle {
+    prevent_destroy = true
+  }
   provisioner "remote-exec" {
     inline = [ "echo 'wait to start instance' "]
   }
